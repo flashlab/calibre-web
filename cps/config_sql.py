@@ -168,6 +168,9 @@ class _ConfigSQL(object):
     def role_viewer(self):
         return self._has_role(constants.ROLE_VIEWER)
 
+    def role_comment(self):
+        return self._has_role(constants.ROLE_COMMENT)
+
     def role_upload(self):
         return self._has_role(constants.ROLE_UPLOAD)
 

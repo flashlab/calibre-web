@@ -258,13 +258,17 @@
       {% endif %}
 
       {% endif %}
-      {% if g.user.role_edit() %}
       <div class="btn-toolbar" role="toolbar">
-        <div class="btn-group" role="group" aria-label="Edit/Delete book">
+        <div class="btn-group" role="group" aria-label="Edit/View book">
+        {% if g.user.role_edit() %}
           <a href="{{ url_for('editbook.edit_book', book_id=entry.id) }}" class="btn btn-sm btn-warning" id="edit_book" role="button"><span class="glyphicon glyphicon-edit"></span> {{_('Edit Metadata')}}</a>
+        {% endif %}
+        {% if is_xhr %}
+          <a href="{{ url_for('web.show_book', book_id=entry.id) }}" class="btn btn-sm btn-info" role="button"><span class="glyphicon glyphicon-send"></span> {{_('View More')}}</a>
+        {% endif %}
         </div>
       </div>
-      {% endif %}
+      <div id="vcomments"></div>
       </div>
 
     </div>
@@ -286,4 +290,28 @@
   </a>
 </script>
 <script src="{{ url_for('static', filename='js/details.js') }}"></script>
+
+{% if not is_xhr and g.user.role_comment() %}
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script>
+    new Valine({
+      el: '#vcomments',
+      appId: 'MITgvuh90uv43DVk5wH4k4Vc-gzGzoHsz',
+      appKey: 'mkLAd0fLRcA6B3u4UOYOWPTJ',
+      verify: true
+    })
+    {% if g.user.is_authenticated %}
+    var updateform = setInterval(function() {
+     if ($('#veditor').length) {
+        console.log("comment ready!")
+        clearInterval(updateform)
+        $('#vcomments .vnick').val('{{g.user.nickname}}')
+        $('#vcomments .vmail').val('{{g.user.email}}')
+     }
+    }, 100);
+
+    {% endif %}
+  </script>
+{% endif %}
+
 {% endblock %}

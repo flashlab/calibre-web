@@ -96,6 +96,10 @@
           <label for="viewer_role">{{_('Allow eBook Viewer')}}</label>
         </div>
         <div class="form-group">
+          <input type="checkbox" name="comment_role" id="comment_role" {% if conf.role_viewer() %}checked{% endif %}>
+          <label for="comment_role">{{_('Allow Comment')}}</label>
+        </div>
+        <div class="form-group">
           <input type="checkbox" name="upload_role" id="upload_role" {% if conf.role_upload() %}checked{% endif %}>
           <label for="upload_role">{{_('Allow Uploads')}}</label>
         </div>

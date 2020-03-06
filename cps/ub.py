@@ -141,6 +141,9 @@ class UserBase:
     def role_viewer(self):
         return self._has_role(constants.ROLE_VIEWER)
 
+    def role_comment(self):
+        return self._has_role(constants.ROLE_COMMENT)
+
     @property
     def is_active(self):
         return True
