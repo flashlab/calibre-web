@@ -311,10 +311,13 @@ if ub.oauth_support:
     def github_login():
         if not github.authorized:
             return redirect(url_for('github.login'))
-        account_info = github.get('/user')
-        if account_info.ok:
-            account_info_json = account_info.json()
-            return bind_oauth_or_register(oauthblueprints[0]['id'], account_info_json['id'], 'github.login', 'github')
+        try:
+            account_info = github.get('/user')
+            if account_info.ok:
+                account_info_json = account_info.json()
+                return bind_oauth_or_register(oauthblueprints[0]['id'], account_info_json['id'], 'github.login', 'github')
+        except Exception as e:
+            log.exception(e)
         flash(_(u"GitHub Oauth error, please retry later."), category="error")
         return redirect(url_for('web.login'))
 
