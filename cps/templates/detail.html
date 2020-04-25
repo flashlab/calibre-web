@@ -259,7 +259,7 @@
 
       {% endif %}
       <div class="btn-toolbar" role="toolbar">
-        <div class="btn-group" role="group" aria-label="Edit/View book">
+<div class="btn-group" role="group" aria-label="Edit/Delete book">
         {% if g.user.role_edit() %}
           <a href="{{ url_for('editbook.edit_book', book_id=entry.id) }}" class="btn btn-sm btn-warning" id="edit_book" role="button"><span class="glyphicon glyphicon-edit"></span> {{_('Edit Metadata')}}</a>
         {% endif %}
